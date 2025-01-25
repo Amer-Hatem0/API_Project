@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "N+9Z34bOcEwndLODkkyGRnsl9V00zT7jO3KMNSyThvg=",
+  "Source": "TicketPurchaseAPI",
+  "BasePath": "_content/TicketPurchaseAPI",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "TicketPurchaseAPI\\wwwroot",
+      "Source": "TicketPurchaseAPI",
+      "ContentRoot": "C:\\Users\\amrh3\\OneDrive\\Desktop\\full stack\\Back End\\Projects\\proj\\wwwroot\\",
+      "BasePath": "_content/TicketPurchaseAPI",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\amrh3\\OneDrive\\Desktop\\full stack\\Back End\\Projects\\proj\\wwwroot\\QRCodes\\Ticket_17.png",
+      "SourceId": "TicketPurchaseAPI",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\amrh3\\OneDrive\\Desktop\\full stack\\Back End\\Projects\\proj\\wwwroot\\",
+      "BasePath": "_content/TicketPurchaseAPI",
+      "RelativePath": "QRCodes/Ticket_17.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\QRCodes\\Ticket_17.png"
+    }
+  ]
+}
