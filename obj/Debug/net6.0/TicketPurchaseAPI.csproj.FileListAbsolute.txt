@@ -81,3 +81,6 @@ C:\Users\amrh3\OneDrive\Desktop\full stack\Back End\Projects\proj\obj\Debug\net6
 C:\Users\amrh3\OneDrive\Desktop\full stack\Back End\Projects\proj\obj\Debug\net6.0\TicketPurchaseAPI.genruntimeconfig.cache
 C:\Users\amrh3\OneDrive\Desktop\full stack\Back End\Projects\proj\obj\Debug\net6.0\ref\TicketPurchaseAPI.dll
 C:\Users\amrh3\OneDrive\Desktop\full stack\Back End\Projects\proj\bin\Debug\net6.0\TicketPurchaseAPI.staticwebassets.runtime.json
+C:\Users\amrh3\OneDrive\Desktop\full stack\Back End\Projects\proj\obj\Debug\net6.0\TicketPurchaseAPI.sourcelink.json
+C:\Users\amrh3\OneDrive\Desktop\full stack\Back End\Projects\proj\bin\Debug\net6.0\Mapster.dll
+C:\Users\amrh3\OneDrive\Desktop\full stack\Back End\Projects\proj\bin\Debug\net6.0\Mapster.Core.dll

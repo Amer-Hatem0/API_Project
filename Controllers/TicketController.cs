@@ -44,25 +44,25 @@ namespace TicketPurchaseAPI.Controllers
                 return BadRequest();
             }
 
-            //fetch the logged in username
+    
             var user = User.GetUsername();
 
-            //fetch the event in the DB
+            
             var eventObject = await _eventRepo.GetByIdAsync(eventId);
             if (eventObject == null)
             {
                 return StatusCode(500, "Event not found");
             }
-            //check if event is sold out 
+           
             else if (eventObject.TicketSold == eventObject.Capacity)
             {
                 return BadRequest("Event has been sold out");
             }
            
-            //Create new ticket
+         
             var newTicket = await _ticketRepo.CreateTicketAsync(eventObject, ticketType,user);
 
-            //CReate new payment record
+           
             var newPayment = await _paymentRepo.CreatePaymentAsync(user, newTicket.Id, newTicket.Price);
             return Ok(newTicket);
             
@@ -89,54 +89,28 @@ namespace TicketPurchaseAPI.Controllers
         }
 
 
-        //Action method to vaidate a particular ticket
-        [HttpGet("qrcode/Validate/{id}")]
-        [Authorize]
-        public async Task<IActionResult> Validate(int id)
-        {
-            
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-                    
-            var ticket = await _ticketRepo.GetTicketById(id);
 
-            switch (ticket.Status)
-            {
-                case TicketStatus.Pending:
-                    return BadRequest("Make payment for ticket first");
-                case TicketStatus.Validated:
-                    return BadRequest("Ticket has already been validated before");
-                case TicketStatus.Paid:
-                    await _ticketRepo.VaidateTicket(id);
-                    return Ok("Ticket is Validated  " + ticket);
-                default:
-                    return BadRequest($"Unknown ticket status: {ticket.Status}");
-            }
-
-
-            return BadRequest("Something went wrong");   
-        }
-
-        //Action method to confirm payment of ticket
         [HttpGet("/Confirmpayment/{id}")]
         public async Task<IActionResult> ConfirmPayment(int id)
         {
-           
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            
-         
-            if (await _ticketRepo.TicketExists(id))
+
+             if (await _ticketRepo.TicketExists(id))
             {
-                var ticket = await _ticketRepo.ConfirmPayment(id);
-                return Ok("Payment Confirmed...." );
+                var ticket = await _ticketRepo.GetTicketById(id);
+
+                if (ticket.Status == Ticket.TicketStatus.Paid)
+                {
+                    return Ok("Payment already confirmed. Ticket is already paid.");
+                }
+
+                 return BadRequest("Payment could not be confirmed because the ticket is not paid.");
             }
-            
-            return NotFound("Ticket was not found");
+
+            return NotFound("Ticket was not found.");
         }
 
 

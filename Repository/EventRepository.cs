@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Mapster;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using TicketPurchaseAPI.Data;
 using TicketPurchaseAPI.Dto;
+using TicketPurchaseAPI.Dto.EventDto;
 using TicketPurchaseAPI.Interface;
 using TicketPurchaseAPI.Model;
 
@@ -47,6 +50,8 @@ namespace TicketPurchaseAPI.Repository
         public async Task<Event> GetByIdAsync(int id)
         {
             var singleEvent = await _context.Events.FirstOrDefaultAsync(x => x.Id == id);
+           
+
             if (singleEvent == null)
             {
                 return null;

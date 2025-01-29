@@ -22,10 +22,8 @@ namespace TicketPurchaseAPI.Controllers
         }
 
 
-        //Action method to pay for a ticket
         [HttpPost("{ticketId}")]
         [Authorize]
-      
         public async Task<IActionResult> Checkout(int ticketId)
         {
              var ticket = await _ticketRepo.GetTicketById(ticketId);
@@ -34,23 +32,18 @@ namespace TicketPurchaseAPI.Controllers
                 return NotFound("Ticket not found.");
             }
 
-     
-            if (ticket.Status == Ticket.TicketStatus.Paid)
+             ticket.Updated_At = DateTime.UtcNow;
+            ticket.Event.TicketSold++;
+            ticket.PaymentCount++;  
+
+             await _ticketRepo.Update(ticket);
+
+             return Ok(new
             {
-                return BadRequest("This ticket has already been paid.");
-            }
-
-            
-
-             ticket.Status = Ticket.TicketStatus.Paid;
-            ticket.Updated_At = DateTime.UtcNow;
-            await _ticketRepo.Update(ticket);
-
-            return Ok(new
-            {
-                Message = "Payment successful. Ticket status updated to Paid.",
+                Message = $"Payment successful. You have purchased this ticket {ticket.PaymentCount} time(s).",
                 TicketId = ticket.Id,
-                UpdatedStatus = ticket.Status.ToString()
+           
+                PaymentCount = ticket.PaymentCount
             });
         }
 

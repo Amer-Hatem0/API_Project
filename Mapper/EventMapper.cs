@@ -24,10 +24,10 @@ namespace TicketPurchaseAPI.Mapper
                 Id = eventModel.Id,
                 Name = eventModel.Name,
                 Description = eventModel.Description,
-                Venue = eventModel.Venue,
+   
                 Capacity = eventModel.Capacity,
                 Host = eventModel.Host,
-                TicketSold = eventModel.TicketSold,
+         
             };
         }
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TicketPurchaseAPI.Data;
 
@@ -11,9 +12,10 @@ using TicketPurchaseAPI.Data;
 namespace TicketPurchaseAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250125203246_b")]
+    partial class b
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,15 +53,15 @@ namespace TicketPurchaseAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "117a79ed-6e45-4c74-a105-cb5f946fca74",
-                            ConcurrencyStamp = "8a743613-47c7-4232-b944-8b564dcfea65",
+                            Id = "804701f4-e3c7-4f25-9629-d739118e995d",
+                            ConcurrencyStamp = "95f8c4f6-ec6e-4b07-bf15-2c87dcd3305f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "94ff14ee-ed66-4e44-8230-bafa74ecb3d0",
-                            ConcurrencyStamp = "8b3233d2-d9e7-4220-a86c-551a74e82cf1",
+                            Id = "354f9397-1110-452c-a1b2-ffee4a0c8b8c",
+                            ConcurrencyStamp = "d503c9dd-6690-4888-a14c-aadd55eb2f5c",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -292,13 +294,13 @@ namespace TicketPurchaseAPI.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PaymentCount")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TicketSold")
                         .HasColumnType("int");
 
                     b.Property<int>("Type")

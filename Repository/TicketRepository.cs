@@ -30,27 +30,23 @@ namespace TicketPurchaseAPI.Repository
             {
                 return null;
             }
+
+            if (ticket.Status == TicketStatus.Paid)
+            {
+                 return ticket;
+            }
+
             var ticketSeller = await _userManager.FindByNameAsync(ticket.Event.Host);
-            ticketSeller.Balance = ticketSeller.Balance + ((int)ticket.Price);
+            ticketSeller.Balance += (int)ticket.Price;
             ticket.Status = TicketStatus.Paid;
             ticket.Updated_At = DateTime.Now;
             ticket.Event.TicketSold++;
-            await _context.SaveChangesAsync();
-            return ticket;
-        }
-        public async Task<Ticket> VaidateTicket(int id)
-        {
-            var ticket = await _context.Tickets.FindAsync(id);
-            if (ticket == null)
-            {
-                return null;
-            }
-            ticket.Status = TicketStatus.Validated;
-            ticket.Updated_At = DateTime.UtcNow;
-            await _context.SaveChangesAsync();
-            return ticket;
 
+            await _context.SaveChangesAsync();
+            return ticket;
         }
+
+
         public async Task<Ticket> CreateTicketAsync(Event eventObject,string ticketType, string buyer)
         {
                 
@@ -64,15 +60,15 @@ namespace TicketPurchaseAPI.Repository
             
             switch (ticketType)
             {
-                case "Silver":
+                case "1":
                     newTicket.Type = TicketType.Silver;
                     newTicket.Price = 25;
                     break;
-                case "Gold":
+                case "2":
                     newTicket.Type = TicketType.Gold;
                     newTicket.Price = 50;
                     break;
-                case "Diamond":
+                case "3":
                     newTicket.Type = TicketType.Diamond;
                     newTicket.Price = 100; 
                     break;
@@ -117,18 +113,22 @@ namespace TicketPurchaseAPI.Repository
         }
         public async Task<Ticket> Update(Ticket ticket)
         {
-            var existingTicket = await _context.Tickets.FindAsync(ticket.Id);
+            var existingTicket = await _context.Tickets.Include(e => e.Event).FirstOrDefaultAsync(t => t.Id == ticket.Id);
             if (existingTicket == null)
             {
                 return null;
             }
 
-            existingTicket.Status = ticket.Status;
-            existingTicket.Updated_At = ticket.Updated_At;
+             existingTicket.Updated_At = ticket.Updated_At;
+            existingTicket.Event.TicketSold = ticket.Event.TicketSold;
+            existingTicket.PaymentCount = ticket.PaymentCount;
+            existingTicket.Status = Ticket.TicketStatus.Paid;
 
             await _context.SaveChangesAsync();
             return existingTicket;
         }
+
+
 
 
     }
